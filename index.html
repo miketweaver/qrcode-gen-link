@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+    <div id="qrcode"></div>
+    <script>
+        // Parse the URL parameter
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get the 'input' parameter
+        var input = getParameterByName('input');
+
+        // Generate QR code
+        if(input) {
+            new QRCode(document.getElementById("qrcode"), input);
+        } else {
+            document.getElementById("qrcode").innerHTML = "No input provided!";
+        }
+    </script>
+</body>
+</html>
